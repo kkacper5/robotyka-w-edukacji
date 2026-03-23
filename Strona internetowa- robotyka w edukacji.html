@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotyka Edukacyjna - Przyszłość Nauki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #1e1b4b;
+            background: #faf8ff;
+        }
+
+        /* NAWIGACJA */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav__logo-icon {
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav__link {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            transition: width 0.3s;
+        }
+
+        .nav__link:hover {
+            color: white;
+        }
+
+        .nav__link:hover::after {
+            width: 100%;
+        }
+
+        .nav__toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav__toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 2rem 4rem;
+        }
+
+        .hero__shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .hero__shape--1 {
+            width: 400px;
+            height: 400px;
+            background: #6366f1;
+            top: -100px;
+            right: -100px;
+        }
+
+        .hero__shape--2 {
+            width: 300px;
+            height: 300px;
+            background: #a855f7;
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -3s;
+        }
+
+        .hero__shape--3 {
+            width: 200px;
+            height: 200px;
+            background: #22d3ee;
+            top: 50%;
+n            left: 30%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero__badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: #22d3ee;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero__title {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero__title-line {
+            display: block;
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            text-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
+        }
+
+        .hero__title-line--accent {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero__buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn--secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn--secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .hero__stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+        }
+
+        .hero__stat {
+            text-align: center;
+        }
+
+        .hero__stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* SEKCJE */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section__header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section__badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section__badge--light {
+            background: rgba(255, 255, 255, 0.1);
+            color: #22d3ee;
+        }
+
+        .section__title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1e1b4b;
+            margin-bottom: 1rem;
+        }
+
+        .section__title--light {
+            color: white;
+        }
+
+        .section__desc {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .section__desc--light {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .section--gradient-1 {
+            background: linear-gradient(180deg, #faf8ff 0%, #f0e6ff 100%);
+        }
+
+        .section--gradient-2 {
+            background: linear-gradient(180deg, #f0e6ff 0%, #e6f0ff 100%);
+        }
+
+        .section--gradient-3 {
+            background: linear-gradient(180deg, #e6f0ff 0%, #faf8ff 100%);
+        }
+
+        .section--dark {
+            background: #1a1033;
+            color: white;
+        }
+
+        .section--cta {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            padding: 4rem 2rem;
+        }
+
+        /* INFO CARDS */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-card--highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .info-card__icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card__title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .info-card__text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* QUOTE */
+        .quote-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 10rem;
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+
+        .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote__author {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* APPLICATIONS */
+        .applications {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: #818cf8;
+        }
+
+        .app-card__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-card__emoji {
+            font-size: 2.5rem;
+        }
+
+        .app-card__title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .app-card__list {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+
+        .app-card__list li {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* TABLE */
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .data-table th {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1e1b4b;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table__row--recommended {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+            border-left: 3px solid #6366f1;
+        }
+
+        .table__product {
+            font-weight: 600;
+            color: #4f46e5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge--age {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #6366f1;
+        }
+
+        /* PROS & CONS */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .pros-cons__box {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pros-cons__box--pros {
+            border-top: 4px solid #10b981;
+        }
+
+        .pros-cons__box--cons {
+            border-top: 4px solid #f59e0b;
+        }
+
+        .pros-cons__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pros-cons__icon {
+            font-size: 2rem;
+        }
+
+        .pros-cons__title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e1b4b;
+        }
+
+        .pros-cons__list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .pros-cons__item {
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .pros-cons__box--pros .pros-cons__item {
+            border-left-color: #10b981;
+        }
+
+        .pros-cons__box--cons .pros-cons__item {
+            border-left-color: #f59e0b;
+        }
+
+        .pros-cons__item strong {
+            display: block;
+            color: #1e1b4b;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .pros-cons__item span {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* CTA */
+        .cta-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 4rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta__title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta__text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta__buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn--light {
+            background: white;
+            color: #6366f1;
+        }
+
+        .btn--light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn--outline-light {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn--outline-light:hover {
+            background: white;
+            color: #6366f1;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #0f0a1a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer__content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer__logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer__tagline {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer__title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            color: #818cf8;
+        }
+
+        .footer__menu {
+            list-style: none;
+        }
+
+        .footer__menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer__menu a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s;
+        }
+
+        .footer__menu a:hover {
+            color: white;
+        }
+
+        .footer__bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        /* RESPONSYWNOŚĆ */
+        @media (max-width: 1024px) {
+            .hero__title-line {
+                font-size: 3.5rem;
+            }
+            
+            .applications {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav__menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #0f0a1a;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-150%);
+                transition: all 0.3s;
+            }
+            
+            .nav__menu.active {
+                transform: translateY(0);
+            }
+            
+            .nav__toggle {
+                display: flex;
+            }
+            
+            .hero {
+                padding-top: 100px;
+            }
+            
+            .hero__title-line {
+                font-size: 2.5rem;
+            }
+            
+            .hero__stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .hero__buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .applications {
+                grid-template-columns: 1fr;
+            }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table {
+                font-size: 0.75rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 0.8rem 0.4rem;
+            }
+            
+            .footer__content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .cta__buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section__title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAWIGACJA -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav__logo">
+                <span class="nav__logo-icon">🤖</span>
+                <span class="nav__logo-text">RoboEdu</span>
+            </div>
+            <button class="nav__toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav__menu" id="navMenu">
+                <li><a href="#co-to-jest" class="nav__link">Co to jest?</a></li>
+                <li><a href="#zastosowania" class="nav__link">Zastosowania</a></li>
+                <li><a href="#zestawy" class="nav__link">Zestawy</a></li>
+                <li><a href="#zalety-wyzwania" class="nav__link">Zalety i wyzwania</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero__shape hero__shape--1"></div>
+        <div class="hero__shape hero__shape--2"></div>
+        <div class="hero__shape hero__shape--3"></div>
+        <div class="hero__content">
+            <div class="hero__badge">🚀 Nowoczesna Edukacja</div>
+            <h1 class="hero__title">
+                <span class="hero__title-line">Robotyka</span>
+                <span class="hero__title-line hero__title-line--accent">Edukacyjna</span>
+            </h1>
+            <p class="hero__subtitle">Odkryj świat nowoczesnej edukacji przez budowanie i programowanie robotów. Rozwijaj kreatywność, logiczne myślenie i umiejętności przyszłości.</p>
+            <div class="hero__buttons">
+                <a href="#co-to-jest" class="btn btn--primary">Dowiedz się więcej</a>
+                <a href="#zestawy" class="btn btn--secondary">Zobacz zestawy</a>
+            </div>
+            <div class="hero__stats">
+                <div class="hero__stat">
+                    <span class="hero__stat-number">500+</span>
+                    <span class="hero__stat-label">Szkół w Polsce</span>
+                </div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number">50k+</span>
+                    <span class="hero__stat-label">Uczniów</span>
+                </div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number">98%</span>
+                    <span class="hero__stat-label">Zadowolonych</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- CO TO JEST -->
+        <section id="co-to-jest" class="section section--gradient-1">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__badge">📚 Podstawy</span>
+                    <h2 class="section__title">Czym jest robotyka edukacyjna?</h2>
+                    <p class="section__desc">Interdyscyplinarna metoda nauki łącząca teorię z praktyką</p>
+                </div>
+                
+                <div class="info-cards">
+                    <div class="info-card info-card--highlight">
+                        <div class="info-card__icon">🎯</div>
+                        <h3 class="info-card__title">Definicja</h3>
+                        <p class="info-card__text"><strong>Robotyka edukacyjna</strong> to dziedzina łącząca naukę budowy robotów z procesem dydaktycznym. Uczniowie poprzez praktyczne działanie uczą się programowania, mechaniki i elektroniki.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card__icon">💡</div>
+                        <h3 class="info-card__title">Metoda nauki</h3>
+                        <p class="info-card__text">Opiera się na zasadzie <em>"learning by doing"</em> - uczniowie sami konstruują roboty i programują ich zachowanie, ucząc się przez doświadczenie.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card__icon">🧠</div>
+                        <h3 class="info-card__title">Korzyści</h3>
+                        <p class="info-card__text">Rozwija logiczne myślenie, kreatywność, umiejętność pracy zespołowej oraz przygotowuje do przyszłych zawodów w branży technologicznej.</p>
+                    </div>
+                </div>
+                
+                <div class="quote-box">
+                    <blockquote class="quote">
+                        "Robotyka to nie tylko technologia - to narzędzie rozwijające kreatywność, logiczne myślenie i umiejętność pracy zespołowej u najmłodszych."
+                    </blockquote>
+                    <cite class="quote__author">— Eksperci edukacyjni</cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- ZASTOSOWANIA -->
+        <section id="zastosowania" class="section section--dark">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__badge section__badge--light">🏫 W szkołach</span>
+                    <h2 class="section__title section__title--light">Zastosowania w edukacji</h2>
+                    <p class="section__desc section__desc--light">Robotyka wspiera nauczanie wielu przedmiotów szkolnych</p>
+                </div>
+                
+                <div class="applications">
+                    <div class="app-card">
+                        <div class="app-card__header">
+                            <span class="app-card__emoji">🧮</span>
+                            <h3 class="app-card__title">Matematyka</h3>
+                        </div>
+                        <ul class="app-card__list">
+                            <li>Pomiary odległości i kątów</li>
+                            <li>Współrzędne na płaszczyźnie</li>
+                            <li>Proporcje i skale</li>
+                            <li>Geometria i symetria</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-card__header">
+                            <span class="app-card__emoji">⚡</span>
+                            <h3 class="app-card__title">Fizyka</h3>
+                        </div>
+                        <ul class="app-card__list">
+                            <li>Mechanika i ruch</li>
+                            <li>Prędkość i przyspieszenie</li>
+                            <li>Siły i ich oddziaływanie</li>
+                            <li>Energia i jej przemiany</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-card__header">
+                            <span class="app-card__emoji">💻</span>
+                            <h3 class="app-card__title">Programowanie</h3>
+                        </div>
+                        <ul class="app-card__list">
+                            <li>Podstawy algorytmiki</li>
+                            <li>Pętle i instrukcje warunkowe</li>
+                            <li>Debugowanie kodu</li>
+                            <li>Programowanie blokowe i tekstowe</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-card__header">
+                            <span class="app-card__emoji">🧱</span>
+                            <h3 class="app-card__title">Zestawy LEGO</h3>
+                        </div>
+                        <ul class="app-card__list">
+                            <li>LEGO Education SPIKE</li>
+                            <li>LEGO Mindstorms EV3</li>
+                            <li>LEGO WeDo 2.0</li>
+                            <li>Robot Inventor</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABELA -->
+        <section id="zestawy" class="section section--gradient-2">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__badge">🔧 Sprzęt</span>
+                    <h2 class="section__title">Porównanie zestawów robotycznych</h2>
+                    <p class="section__desc">Wybierz odpowiedni zestaw dla swoich uczniów</p>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Zestaw</th>
+                                <th>Wiek</th>
+                                <th>Programowanie</th>
+                                <th>Czujniki</th>
+                                <th>Cena</th>
+                                <th>Zastosowanie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table__product">LEGO WeDo 2.0</td>
+                                <td><span class="badge badge--age">6-10 lat</span></td>
+                                <td>Blokowe (Scratch)</td>
+                                <td>Ruch, tilt</td>
+                                <td><span class="price">~800 zł</span></td>
+                                <td>Podstawy STEM</td>
+                            </tr>
+                            <tr>
+                                <td class="table__product">LEGO SPIKE Essential</td>
+                                <td><span class="badge badge--age">6-10 lat</span></td>
+                                <td>Blokowe + ikony</td>
+                                <td>Kolor, odległość, siła</td>
+                                <td><span class="price">~1200 zł</span></td>
+                                <td>Początkowa edukacja</td>
+                            </tr>
+                            <tr class="table__row--recommended">
+                                <td class="table__product">⭐ LEGO SPIKE Prime</td>
+                                <td><span class="badge badge--age">10-16 lat</span></td>
+                                <td>Blokowe + Python</td>
+                                <td>6 rodzajów czujników</td>
+                                <td><span class="price">~1800 zł</span></td>
+                                <td>Zaawansowana robotyka</td>
+                            </tr>
+                            <tr>
+                                <td class="table__product">Arduino Starter Kit</td>
+                                <td><span class="badge badge--age">12+ lat</span></td>
+                                <td>C++</td>
+                                <td>Różne moduły</td>
+                                <td><span class="price">~400 zł</span></td>
+                                <td>Elektronika, IoT</td>
+                            </tr>
+                            <tr>
+                                <td class="table__product">Raspberry Pi</td>
+                                <td><span class="badge badge--age">14+ lat</span></td>
+                                <td>Python, Linux</td>
+                                <td>Nieograniczone</td>
+                                <td><span class="price">~600 zł</span></td>
+                                <td>Programowanie, AI</td>
+                            </tr>
+                            <tr>
+                                <td class="table__product">VEX IQ</td>
+                                <td><span class="badge badge--age">8-14 lat</span></td>
+                                <td>Blokowe + C++</td>
+                                <td>Kolor, dotyk, odległość</td>
+                                <td><span class="price">~1500 zł</span></td>
+                                <td>Konkursy robotyczne</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ZALETY I WYZWANIA -->
+        <section id="zalety-wyzwania" class="section section--gradient-3">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__badge">⚖️ Analiza</span>
+                    <h2 class="section__title">Zalety i wyzwania</h2>
+                    <p class="section__desc">Co warto wiedzieć przed rozpoczęciem przygody z robotyką</p>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros-cons__box pros-cons__box--pros">
+                        <div class="pros-cons__header">
+                            <span class="pros-cons__icon">✅</span>
+                            <h3 class="pros-cons__title">Zalety</h3>
+                        </div>
+                        <ul class="pros-cons__list">
+                            <li class="pros-cons__item">
+                                <strong>Rozwój myślenia logicznego</strong>
+                                <span>Uczniowie uczą się analizować problemy i szukać rozwiązań</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Kreatywność i innowacyjność</strong>
+                                <span>Swoboda w projektowaniu własnych konstrukcji</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Umiejętności przyszłości</strong>
+                                <span>Przygotowanie do zawodów technologicznych</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Współpraca zespołowa</strong>
+                                <span>Projekty grupowe uczą komunikacji</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Interdyscyplinarność</strong>
+                                <span>Łączenie wiedzy z różnych przedmiotów</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Motywacja do nauki</strong>
+                                <span>Zabawa jako forma edukacji</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pros-cons__box pros-cons__box--cons">
+                        <div class="pros-cons__header">
+                            <span class="pros-cons__icon">⚠️</span>
+                            <h3 class="pros-cons__title">Wyzwania</h3>
+                        </div>
+                        <ul class="pros-cons__list">
+                            <li class="pros-cons__item">
+                                <strong>Wysokie koszty wyposażenia</strong>
+                                <span>Zestawy robotyczne wymagają inwestycji</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Konieczność szkoleń</strong>
+                                <span>Przygotowanie kadry do prowadzenia zajęć</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Ograniczony czas lekcyjny</strong>
+                                <span>Trudność w realizacji pełnego programu</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Brak standardowych programów</strong>
+                                <span>Konieczność tworzenia własnych materiałów</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Utrzymanie sprzętu</strong>
+                                <span>Serwisowanie i wymiana części</span>
+                            </li>
+                            <li class="pros-cons__item">
+                                <strong>Różnice w umiejętnościach</strong>
+                                <span>Zróżnicowany poziom uczniów w klasie</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section section--cta">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="cta__title">Gotowy na przygodę z robotyką?</h2>
+                    <p class="cta__text">Niezależnie od tego, czy jesteś nauczycielem, rodzicem czy uczniem - robotyka edukacyjna otwiera przed Tobą nowe możliwości rozwoju.</p>
+                    <div class="cta__buttons">
+                        <a href="#zestawy" class="btn btn--light">Zobacz zestawy</a>
+                        <a href="#zalety-wyzwania" class="btn btn--outline-light">Poznaj zalety</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">🤖 RoboEdu</div>
+                    <p class="footer__tagline">Robotyka edukacyjna dla przyszłych pokoleń</p>
+                </div>
+                <div class="footer__links">
+                    <h4 class="footer__title">Nawigacja</h4>
+                    <ul class="footer__menu">
+                        <li><a href="#co-to-jest">Co to jest?</a></li>
+                        <li><a href="#zastosowania">Zastosowania</a></li>
+                        <li><a href="#zestawy">Zestawy</a></li>
+                        <li><a href="#zalety-wyzwania">Zalety i wyzwania</a></li>
+                    </ul>
+                </div>
+                <div class="footer__resources">
+                    <h4 class="footer__title">Przydatne linki</h4>
+                    <ul class="footer__menu">
+                        <li><a href="https://education.lego.com" target="_blank">LEGO Education</a></li>
+                        <li><a href="https://www.arduino.cc" target="_blank">Arduino</a></li>
+                        <li><a href="https://www.raspberrypi.org" target="_blank">Raspberry Pi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2024 RoboEdu - Robotyka Edukacyjna. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SKRYPT -->
+    <script>
+        // Menu mobilne
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Zamknij menu po kliknięciu w link
+        document.querySelectorAll('.nav__link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // Płynne przewijanie
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Cień nagłówka przy przewijaniu
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
